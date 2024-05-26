@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { Box, Typography } from '@mui/material'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import { theme } from '../styles/Theme' 
+import { sha256File } from '../utils/fileUtil'
 
 const Uploader = () => {
     const uploaderStyle = {
@@ -19,8 +20,14 @@ const Uploader = () => {
         cursor: cursor,
     }
 
+    const onUploadDone = (fileName, fileHash) =>{
+        console.log('onUploadDone()',{fileName, fileHash})
+        // TODO store file hash and display nft description form
+    }
+
     const onDrop = (acceptedFiles) => {
         console.log('onDrop() acceptedFiles=', acceptedFiles)
+        sha256File(acceptedFiles[0],()=>{}).then((result)=>{onUploadDone(acceptedFiles[0].name,result)})
     }
 
     const { getRootProps, getInputProps } = useDropzone({ onDrop, multiple:false })
