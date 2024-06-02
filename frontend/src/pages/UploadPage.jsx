@@ -24,7 +24,6 @@ const UploadPage = () => {
 
   const onUploadDone = (fileName, fileHash) => {
     console.log('onUploadDone()',{fileName, fileHash})
-    // TODO store file hash and display nft description form
     setNftInfo({...nftInfo, fileName,fileHash})
     setStage(uploadStage.description)
   }

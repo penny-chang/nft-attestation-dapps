@@ -49,20 +49,42 @@ app.post("/token/:id", (req, res) => {
 
 app.get("/token/:id", (req, res) => {
   const id = req.params.id;
-  console.log("Get token info: ", id);
-  const metadata = {
+  if (!id) {
+    res.status(404).send("Token not found");
+  }
+  console.log("Get token info start: ", id);
+  const fileName = `token_${id}.json`;
+  const filePath = path.join(dataSaveFolder, fileName);
+  let unknownMetadata = {
     id,
-    description: "My test NFT",
+    description: "Unknown NFT",
     external_url: "http://localhost:3000",
     image:
       "https://storage.googleapis.com/opensea-prod.appspot.com/puffs/3.png",
-    name: "Test NFT",
-  }; // TODO get metadata
-  if (id && metadata) {
-    res.json(metadata);
-  } else {
-    res.status(404).send("Token not found");
-  }
+    name: "Unknown NFT",
+  };
+  fs.readFile(filePath, "utf8", (err, data) => {
+    if (err) {
+      console.error("Error reading file:", err);
+      res.json(unknownMetadata);
+    }
+    try {
+      const jsonObject = JSON.parse(data);
+      console.log("Parsed JSON object:", jsonObject);
+      const metadata = {
+        id,
+        description: `${jsonObject.description}\n\n Original file name:${jsonObject.fileName}.\n Original file hash: ${jsonObject.fileHash}.`,
+        image: jsonObject.imageUrl,
+        external_url: jsonObject.externalUrl,
+        name: jsonObject.name,
+      };
+      console.log("Get token info end, metadata:", metadata);
+      res.json(metadata);
+    } catch (err) {
+      console.error("Error parsing JSON:", err);
+      res.json(unknownMetadata);
+    }
+  });
 });
 
 app.listen(port, () => {
