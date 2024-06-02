@@ -3,7 +3,7 @@ import path from "path";
 import fs from "fs";
 import bodyParser from "body-parser";
 
-const port = 3001;
+const port = 3000;
 const app = express();
 const dataSaveFolder = "./metadata";
 app.use(bodyParser.json());
@@ -42,7 +42,14 @@ app.post("/token", (req, res) => {
 app.get("/token/:id", (req, res) => {
   const id = req.params.id;
   console.log("Get token info: ", id);
-  const metadata = { id }; // TODO get metadata
+  const metadata = {
+    id,
+    description: "My test NFT",
+    external_url: "http://localhost:3000",
+    image:
+      "https://storage.googleapis.com/opensea-prod.appspot.com/puffs/3.png",
+    name: "Test NFT",
+  }; // TODO get metadata
   if (id && metadata) {
     res.json(metadata);
   } else {
