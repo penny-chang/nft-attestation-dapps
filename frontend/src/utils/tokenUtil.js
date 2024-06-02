@@ -26,5 +26,5 @@ export const randomTokenId = () => {
     hexString,
     randomTimes
   );
-  return "0x" + hexString;
+  return hexString;
 };

@@ -44,7 +44,7 @@ const MintTest = () => {
   const mintNFT = async () => {
     const nftInfo = {
       account: accountInfo?.address,
-      id: randomTokenId(),
+      id: '0x'+randomTokenId(),
       quantity: 5,
       data: [], // Additional data here, use `stringToByteArray(dataStr)`
     };
