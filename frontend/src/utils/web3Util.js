@@ -43,3 +43,25 @@ export const createWeb3Service = async () => {
   nftContract = new web3.eth.Contract(contractAbi, contractAddress);
   console.log("createWeb3Service() end", { accountInfo, nftContract });
 };
+
+export const buildTxParams = async (nftInfo) => {
+  // Gas price setting
+  const gasLimit = 70000; // You may change the gasLimit here
+  const gasPriceMultiplier = 2; // If you find your transaction not able to be processed on chain, higher this value
+  const maxPriorityFeePerGasInWei = 2500000000;
+  // Returns the current gas price oracle. The gas price is determined by the last few blocks median gas price.
+  const baseGasPrice = await web3.eth.getGasPrice();
+  console.log("getTxParams() current gas price oracle:", baseGasPrice);
+  const txParams = {
+    from: nftInfo.account,
+    to: contractAddress,
+    gas: web3.utils.numberToHex(gasLimit),
+    gasPrice: BigInt(baseGasPrice) * BigInt(gasPriceMultiplier),
+    //   maxPriorityFeePerGas: web3.utils.numberToHex(maxPriorityFeePerGasInWei),
+    data: nftContract.methods
+      .mint(nftInfo.account, nftInfo.id, Number(nftInfo.quantity), nftInfo.data)
+      .encodeABI(),
+  };
+  console.log("buildTxParams()", { txParams });
+  return txParams;
+};
