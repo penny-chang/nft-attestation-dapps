@@ -17,3 +17,7 @@ See metadata standards on [OpenSea](https://docs.opensea.io/docs/metadata-standa
 "attributes": [ ... ]
 }
 ```
+
+### Contract
+
+`MyToken.sol` should be use on Remix with `@openzeppelin` library.
