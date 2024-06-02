@@ -5,24 +5,19 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import { theme } from '../styles/Theme' 
 import { sha256File } from '../utils/fileUtil'
 
-const Uploader = () => {
-    const uploaderStyle = {
-        border: `2px dashed ${theme.palette.primary.main}`,
-        borderRadius: '2px',
-        backgroundColor: theme.palette.primary.light,
-        textAlign: 'center',
-        p: 10,
-    }
+const uploaderStyle = {
+    border: `2px dashed ${theme.palette.primary.main}`,
+    borderRadius: '2px',
+    backgroundColor: theme.palette.primary.light,
+    textAlign: 'center',
+    p: 10,
+}
 
+const Uploader = ({ onUploadDone }) => {
     const [cursor, setCursor] = useState('')
 
     const cursorStyle = {
         cursor: cursor,
-    }
-
-    const onUploadDone = (fileName, fileHash) =>{
-        console.log('onUploadDone()',{fileName, fileHash})
-        // TODO store file hash and display nft description form
     }
 
     const onDrop = (acceptedFiles) => {

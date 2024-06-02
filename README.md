@@ -21,3 +21,7 @@ See metadata standards on [OpenSea](https://docs.opensea.io/docs/metadata-standa
 ### Contract
 
 `MyToken.sol` should be use on Remix with `@openzeppelin` library.
+
+### Server
+
+You should specify cors strategy in server side `index.js`.
