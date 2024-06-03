@@ -74,7 +74,7 @@ app.get("/token/:id", (req, res) => {
       console.log("Parsed JSON object:", jsonObject);
       const metadata = {
         id,
-        description: `${jsonObject.description}\n\n Original file name:${jsonObject.fileName}.\n Original file hash: ${jsonObject.fileHash}.`,
+        description: `${jsonObject.description}\n\n Original file name:${jsonObject.fileName}\n Original file hash: ${jsonObject.fileHash}`,
         image: jsonObject.imageUrl,
         external_url: jsonObject.externalUrl,
         name: jsonObject.name,
