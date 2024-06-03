@@ -15,7 +15,7 @@ const CreateDescription = ({nftInfo,setNftInfo,onMintClick}) =>{
                     <Typography variant='h6'>
                         上傳之檔案名稱
                     </Typography>
-                    <Typography variant='body1' sx={{mt:1}} color="primary">
+                    <Typography variant='body1' color="primary">
                         {nftInfo?.fileName}
                     </Typography>
                 </Box>
@@ -23,7 +23,7 @@ const CreateDescription = ({nftInfo,setNftInfo,onMintClick}) =>{
                     <Typography variant='h6'>
                         上傳之檔案雜湊值
                     </Typography>
-                    <Typography variant='body1' sx={{mt:1}} color="primary">
+                    <Typography variant='body1' color="primary">
                         {nftInfo?.fileHash}
                     </Typography>
                 </Box>
@@ -32,7 +32,7 @@ const CreateDescription = ({nftInfo,setNftInfo,onMintClick}) =>{
                 <TextField fullWidth value={nftInfo.imageUrl} onChange={(e)=>onNftInfoChange('imageUrl',e.target.value)} label="輸入縮圖URL"/>
                 <TextField fullWidth value={nftInfo.externalUrl} onChange={(e)=>onNftInfoChange('externalUrl',e.target.value)} label="輸入網站URL"/>
             </Stack>
-            <Button variant='contained' onClick={onMintClick} sx={{mt:2}}>鑄造NFT</Button>
+            <Button variant='contained' onClick={onMintClick} sx={{mt:2}} disabled={!nftInfo?.name || nftInfo?.name === ''}>鑄造NFT</Button>
             </>
 }
 

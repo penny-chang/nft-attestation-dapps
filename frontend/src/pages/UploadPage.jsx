@@ -7,6 +7,7 @@ import { randomTokenId } from "../utils/tokenUtil";
 import { saveMetadata } from "../service/backendService";
 import { web3, accountInfo, buildTxParams, createWeb3Service } from "../utils/web3Util";
 import { getOpenSeaUrl } from "../utils/stringUtil";
+import MintSuccess from "../components/MintSuccess";
 
 const UploadPage = () => {
   const uploadStage = {
@@ -14,15 +15,16 @@ const UploadPage = () => {
     description:'description',
     success:'success'
   }
-  const [stage, setStage] = useState(uploadStage.file)
-  const [nftInfo, setNftInfo] = useState({
+  const initNftInfo = {
     fileName:'',
     fileHash:'',
     name:'',
     description:'',
     imageUrl:'',
     externalUrl:''
-  })
+  }
+  const [stage, setStage] = useState(uploadStage.file)
+  const [nftInfo, setNftInfo] = useState({...initNftInfo})
 
   const onUploadDone = (fileName, fileHash) => {
     console.log('onUploadDone()',{fileName, fileHash})
@@ -57,8 +59,8 @@ const UploadPage = () => {
     console.log('onMintDone() ',tokenId)
     const openSeaUrl = getOpenSeaUrl(tokenId)
     console.log('openSeaUrl:', openSeaUrl)
-    // TODO setStage(uploadStage.success)
-    // Show nft info and open sea link
+    setNftInfo({...nftInfo,openSeaUrl})
+    setStage(uploadStage.success)
   }
 
 
@@ -70,6 +72,12 @@ const UploadPage = () => {
       mintNFT(tokenId)
     })
   }
+
+  const onReset = () =>{
+    setNftInfo({...initNftInfo})
+    setStage(uploadStage.file)
+  }
+
   useEffect(() => {
     createWeb3Service();
   }, []);
@@ -84,8 +92,14 @@ const UploadPage = () => {
           </Box>
         </>
       }
-      {stage === uploadStage.description && <Box mt={2}>
+      {stage === uploadStage.description && 
+        <Box mt={2}>
           <CreateDescription nftInfo={nftInfo} setNftInfo={setNftInfo} onMintClick={onMintClick}/>
+        </Box>
+      }
+       {stage === uploadStage.success && 
+        <Box mt={2}>
+          <MintSuccess nftInfo={nftInfo} reset={onReset}/>
         </Box>
       }
     </>
