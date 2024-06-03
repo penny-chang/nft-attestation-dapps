@@ -67,6 +67,7 @@ app.get("/token/:id", (req, res) => {
     if (err) {
       console.error("Error reading file:", err);
       res.json(unknownMetadata);
+      return;
     }
     try {
       const jsonObject = JSON.parse(data);
