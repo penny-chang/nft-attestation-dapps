@@ -21,6 +21,8 @@
 
 ※ You will need some SepoliaETH in order to deploy the contract. I personally recommend receiving the SepoliaETH via the [faucet](https://sepolia-faucet.pk910.de/). You'll need to follow the instruction on the site in order to start mining for SepoliaETH.
 
+※The metadata URI path should be specify when initial or call `setURI` on the contract afterward. Specify the backend url to be `{ServerBaseUrl}/token/{id}`. Please follow the format carefully or the metadata won't be shown on any NFT marketplace.
+
 5. Test run the contract method
    ![alt text](./doc/test.png)
 
