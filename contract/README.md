@@ -5,7 +5,8 @@
 ## How to run test the contract?
 
 1. Go to [Remix Ethereum IDE](https://remix.ethereum.org/)
-2. Select Templates: ERC1155 (OpenZeppelin).
+2. Select Templates: ERC1155 (OpenZeppelin) in order for the project to include the basic ERC1155 methods.
+   ![alt text](./doc/template.png)
 3. Replace the `MyToken.sol` file created by the template with the code from this project.
 
 ## How to deploy and compile contract on Remix?
